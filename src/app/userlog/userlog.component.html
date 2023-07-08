@@ -1,0 +1,37 @@
+<mat-spinner *ngIf="isLoading" class="spinner"></mat-spinner>
+<div *ngIf="this.dataSource.data.length&&!isLoading" class="example-container mat-elevation-z8 ">
+  <mat-form-field>
+    <mat-label>搜尋</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+  </mat-form-field>
+  <mat-table #table [dataSource]="dataSource" (matSortChange)="announceSortChange($event)" matSort>
+
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>學號</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.id}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="time">
+      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.time}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="state">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>狀態</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <span *ngIf="element.state" class="text-success">簽到</span>
+        <span *ngIf="!element.state" class="text-danger">簽退</span>
+      </mat-cell>
+    </ng-container>
+
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+  </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+    </mat-paginator>
+</div>
+<div *ngIf="!this.dataSource.data.length&&!isLoading">
+  沒有紀錄
+</div>

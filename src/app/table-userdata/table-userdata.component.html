@@ -1,0 +1,164 @@
+<mat-spinner *ngIf="isLoading" class="spinner"></mat-spinner>
+<div
+  class="example-container mat-elevation-z8"
+  *ngIf="!isMobile && !isLoading && this.dataSource.data.length"
+>
+  <div class="example-header">
+    <mat-form-field>
+      <mat-label><mat-icon>search</mat-icon>搜尋</mat-label>
+      <input
+        class="input-mat"
+        matInput
+        (keyup)="applyFilter($event)"
+        placeholder="Ex. Mia"
+      />
+    </mat-form-field>
+    <button
+      (click)="AddOnClick()"
+      *ngIf="isAuthenticated"
+      [disabled]="!isConnecting"
+      mat-flat-button
+      color="primary"
+    >
+      新增
+    </button>
+  </div>
+  <mat-table
+    #table
+    [dataSource]="dataSource"
+    (matSortChange)="announceSortChange($event)"
+    matSort
+  >
+    <ng-container matColumnDef="chineseName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>姓名</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.chineseName }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>學號</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="grade">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>年級</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.grade }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="monaverage">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >上個月簽到天數</mat-header-cell
+      >
+      <mat-cell *matCellDef="let element">{{ element.monaverage }} 天</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="dayaverage">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >上個月天總時間</mat-header-cell
+      >
+      <mat-cell *matCellDef="let element">{{ element.dayaverage }} 天</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="totaleverydayminute">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >總時間</mat-header-cell
+      >
+      <mat-cell *matCellDef="let element"
+        >{{ element.totaleverydayminute }}天</mat-cell
+      >
+    </ng-container>
+
+    <ng-container matColumnDef="notcheckday">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >未打卡天數</mat-header-cell
+      >
+      <mat-cell *matCellDef="let element"
+        >{{ element.notcheckday }} 天</mat-cell
+      >
+    </ng-container>
+
+    <ng-container matColumnDef="state">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>狀態</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <span *ngIf="element.state" class="text-success">已簽到</span>
+        <span *ngIf="!element.state" class="text-danger">未簽到</span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button
+          [disabled]="!isConnecting"
+          mat-icon-button
+          (click)="Visibility(element.id)"
+        >
+          <mat-icon> visibility </mat-icon>
+        </button>
+
+        <button
+          *ngIf="isAuthenticated"
+          [disabled]="!isConnecting"
+          mat-icon-button
+          color="warn"
+          (click)="Deletedata(element.chineseName, element.id)"
+        >
+          <mat-icon> delete </mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
+    aria-label="Select page of periodic elements"
+  >
+  </mat-paginator>
+</div>
+<div
+  *ngIf="isMobile && !isLoading && this.dataSource.data.length && isConnecting"
+>
+  <ng-container *ngFor="let item of dataSource.data">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title-group>
+          <mat-card-title>{{ item.chineseName }}</mat-card-title>
+        </mat-card-title-group>
+      </mat-card-header>
+
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item>
+            <span matListItemTitle>學號</span>
+            <span matListItemLine>{{ item.id }}</span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle>年級</span>
+            <span matListItemLine>{{ item.grade }}</span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle>上個月簽到天數</span>
+            <span matListItemLine>{{ item.monaverage }} 天</span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle>上個月天總時間</span>
+            <span matListItemLine>{{ item.dayaverage }} 天</span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle>未打卡天數</span>
+            <span matListItemLine>{{ item.notcheckday }} 天</span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle>狀態</span>
+            <span *ngIf="item.state" class="text-success">已簽到</span>
+            <span *ngIf="!item.state" class="text-danger">未簽到</span>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </ng-container>
+</div>
+<div *ngIf="!this.dataSource.data.length && !isLoading">
+  <p>無資料</p>
+</div>

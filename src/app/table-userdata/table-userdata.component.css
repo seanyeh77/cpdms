@@ -1,0 +1,29 @@
+.example-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  max-width: 95%;
+  margin: 0 auto;
+}
+
+.example-header {
+  display: flex;
+  align-items: center;
+}
+
+mat-form-field {
+  flex: 9;
+  width: 100%;
+}
+
+button {
+  flex: 1;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  max-width: 100px;
+}
+.example-card {
+  max-width: 400px;
+  margin: 8px auto;
+}

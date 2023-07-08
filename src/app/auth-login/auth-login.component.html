@@ -1,0 +1,40 @@
+<mat-spinner *ngIf="isLoading" class="spinner"></mat-spinner>
+<form
+  [formGroup]="form"
+  class="example-form"
+  (ngSubmit)="onSubmit()"
+  *ngIf="!isLoading"
+>
+  <h1>帳號登入</h1>
+  <br />
+  <mat-form-field class="example-full-width">
+    <mat-label>帳號</mat-label>
+    <input
+      type="email"
+      matInput
+      formControlName="email"
+      placeholder="Ex. pat@example.com"
+    />
+    <mat-error *ngIf="form.get('email')?.invalid">
+      {{ getErrorMessage("email") }}
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label>密碼</mat-label>
+    <input type="password" formControlName="password" matInput />
+    <mat-error *ngIf="form.get('password')?.invalid">
+      {{ getErrorMessage("password") }}
+    </mat-error>
+  </mat-form-field>
+  <button
+    mat-raised-button
+    id="basic"
+    type="submit"
+    color="primary"
+    [disabled]="form.invalid"
+    class
+    mat-raised-button
+  >
+    登入
+  </button>
+</form>

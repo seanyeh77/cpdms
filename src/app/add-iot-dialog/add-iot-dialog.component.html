@@ -1,0 +1,56 @@
+<h1 mat-dialog-title>新增裝置</h1>
+<div mat-dialog-content>
+  <mat-spinner *ngIf="isLoading" class="spinner"></mat-spinner>
+  <form
+    *ngIf="!isLoading"
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+    class="example-form"
+    #inputForm
+  >
+    <mat-form-field>
+      <mat-label>裝置名稱</mat-label>
+      <input type="name" matInput formControlName="name" />
+      <mat-error *ngIf="form.get('name')?.invalid">
+        {{ getErrorMessage("name") }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>類型</mat-label>
+      <mat-select formControlName="type">
+        <mat-option value="開關連續常開式">開關連續常開式</mat-option>
+        <mat-option value="開關連續常關式">開關連續常關式</mat-option>
+        <mat-option value="開關不連續常開式">開關不連續常開式</mat-option>
+        <mat-option value="開關不連續常關式">開關不連續常關式</mat-option>
+        <mat-option value="感測器">感測器</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('type')?.invalid">
+        {{ getErrorMessage("type") }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>到期時間</mat-label>
+      <input matInput formControlName="deadline" [matDatepicker]="picker" />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <div mat-dialog-actions>
+      <button
+        type="submit"
+        [disabled]="this.form.invalid"
+        color="primary"
+        mat-button
+      >
+        確認
+      </button>
+      <button color="warn" mat-button mat-dialog-close>取消</button>
+    </div>
+  </form>
+</div>

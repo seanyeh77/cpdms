@@ -1,0 +1,77 @@
+<mat-spinner *ngIf="isLoading" class="spinner"></mat-spinner>
+<div *ngIf="this.dataSource.data.length&&!isLoading" fxLayoutGap="30px" fxLayout="row wrap" fxLayoutAlign="center" fxLayoutWrap>
+  <ng-container *ngFor="let item of dataSource.data">
+    <mat-card
+    class="example-card"
+      fxFlex="0 1 calc(15%+5rem)"
+      fxFlex.lt-md="0 1 calc(50% - 1rem)"
+      fxFlex.lt-sm="calc(100% - 1rem)"
+    >
+      <mat-card-header>
+        <img
+          mat-card-avatar
+          src="data:image/jpeg;base64,{{ item.binaryImage }}"
+        />
+        <mat-card-title>{{ item.chineseName }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item>
+            <span matListItemTitle>學號</span>
+            <span matListItemLine>{{ item.id }}</span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle>年級</span>
+            <span matListItemLine>{{ item.grade }}</span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle>英文姓名</span>
+            <span matListItemLine>{{ item.englishName }}</span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle>性別</span>
+            <span matListItemLine>{{ item.gender }}</span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle>身分</span>
+            <span matListItemLine>{{ item.position }}</span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle>Email</span>
+            <span matListItemLine>
+              <a href="mailto: {{ item.email }}">{{ item.email }}</a>
+            </span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle>簡介</span>
+            <span matListItemLine>{{ item.view | replaceNewLinePipe }}</span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle>鎖定狀態</span>
+            <span *ngIf="item.lock" class="text-danger">已鎖定</span>
+            <span *ngIf="!item.lock" class="text-success">未鎖定</span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle>狀態</span>
+            <span *ngIf="item.state" class="text-success">已簽到</span>
+            <span *ngIf="!item.state" class="text-danger">未簽到</span>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+      <mat-card-actions *ngIf="isAuthenticated">
+        <button
+        [disabled]="!isConnecting"
+          (click)="edituser(item)"
+          mat-button
+          color="primary"
+        >
+          <mat-icon> edit </mat-icon>
+          修改
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </ng-container>
+</div>
+<div *ngIf="!this.dataSource.data.length&&!isLoading">
+  <p>無資料</p>
+</div>

@@ -1,0 +1,109 @@
+<h1 mat-dialog-title>新增成員資料</h1>
+<div mat-dialog-content>
+  <mat-spinner *ngIf="isLoading" class="spinner"></mat-spinner>
+  <form *ngIf="!isLoading" [formGroup]="form" (ngSubmit)="onSubmit()" class="example-form" #inputForm>
+    <mat-form-field>
+      <mat-label>學號</mat-label>
+      <input type="ID" matInput formControlName="id" />
+      <mat-error *ngIf="form.get('id')?.invalid">
+        {{ getErrorMessage("id") }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>中文姓名</mat-label>
+      <input type="chineseName" matInput formControlName="chineseName" />
+      <mat-error *ngIf="form.get('chineseName')?.invalid">
+        {{ getErrorMessage("chineseName") }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>英文姓名</mat-label>
+      <input matInput formControlName="englishName" />
+      <mat-error *ngIf="form.get('englishName')?.invalid">
+        {{ getErrorMessage("englishName") }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>性別</mat-label>
+      <mat-select formControlName="gender">
+        <mat-option value="男">男</mat-option>
+        <mat-option value="女">女</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('gender')?.invalid">
+        {{ getErrorMessage("gender") }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>年級</mat-label>
+      <input type="grade" matInput formControlName="grade" />
+      <mat-error *ngIf="form.get('grade')?.invalid">
+        {{ getErrorMessage("grade") }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input type="Email" matInput formControlName="email" />
+      <mat-error *ngIf="form.get('email')?.invalid">
+        {{ getErrorMessage("email") }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>職位</mat-label>
+      <mat-select formControlName="position">
+        <mat-option value="老師">老師</mat-option>
+        <mat-option value="學生">學生</mat-option>
+        <mat-option value="其他">其他</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('position')?.invalid">
+        {{ getErrorMessage("position") }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>簡介</mat-label>
+      <textarea type="view" formControlName="view" matInput></textarea>
+      <mat-error *ngIf="form.get('view')?.invalid">
+        {{ getErrorMessage("view") }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-icon
+        matIconPrefix
+        matTooltip="Choose file(s)..."
+        (click)="fileInput.click()"
+      >
+        attach_file</mat-icon
+      >
+      <input
+        matInput
+        readonly
+        formControlName="Image"
+        [value]="getFilesName()"
+        placeholder="傳送檔案"
+      />
+      <mat-error *ngIf="form.get('Image')?.invalid">
+        {{ getErrorMessage("Image") }}
+      </mat-error>
+      <input
+        hidden
+        type="file"
+        formControlName="Image"
+        (change)="onSelectFiles($event)"
+        #fileInput
+        [multiple]="multipleFilesAccepted"
+      />
+    </mat-form-field>
+
+    <div mat-dialog-actions>
+      <button
+        type="submit"
+        [disabled]="this.form.invalid"
+        color="primary"
+        mat-button
+      >
+        確認
+      </button>
+      <button color="warn" mat-button mat-dialog-close>取消</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,137 @@
+<mat-spinner *ngIf="isLoading" class="spinner"></mat-spinner>
+<div
+  class="example-container mat-elevation-z8"
+  *ngIf="!isMobile && !isLoading && this.dataSource.data.length"
+>
+  <div class="example-header">
+    <mat-form-field>
+      <mat-label>搜尋</mat-label>
+      <input
+        matInput
+        (keyup)="applyFilter($event)"
+        placeholder="Ex. Mia"
+        #input
+      />
+    </mat-form-field>
+    <button
+      (click)="AddOnClick()"
+      *ngIf="isAuthenticated"
+      [disabled]="!isConnecting"
+      mat-flat-button
+      color="primary"
+    >
+      新增
+    </button>
+  </div>
+  <mat-table
+    #table
+    [dataSource]="dataSource"
+    (matSortChange)="announceSortChange($event)"
+    matSort
+  >
+    <ng-container matColumnDef="iotid">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>編號</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.iotid }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>名稱</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.name }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="deadline">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >到期時間</mat-header-cell
+      >
+      <mat-cell *matCellDef="let element">{{
+        element.deadline | date : "MM/dd/yy"
+      }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>類型</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.type }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >使用者</mat-header-cell
+      >
+      <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="state">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>狀態</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.state }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <!-- <button mat-icon-button [disabled]="!isConnecting" color="primary">
+          <mat-icon> edit </mat-icon>
+        </button> -->
+        <button
+          mat-icon-button
+          (click)="DeleteIot(element)"
+          [disabled]="!isConnecting"
+          color="warn"
+        >
+          <mat-icon> delete </mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
+    aria-label="Select page of periodic elements"
+  >
+  </mat-paginator>
+</div>
+<div *ngIf="isMobile && this.dataSource.data.length">
+  <ng-container *ngFor="let item of dataSource.data">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title-group>
+          <mat-card-title>{{ item.name }}</mat-card-title>
+        </mat-card-title-group>
+      </mat-card-header>
+
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item>
+            <span matListItemTitle>使用者</span>
+            <span matListItemLine>{{ item.id }}</span>
+          </mat-list-item>
+
+          <mat-list-item>
+            <span matListItemTitle>到期時間</span>
+            <span matListItemLine>{{ item.deadline | date : "MM/dd/yy" }}</span>
+          </mat-list-item>
+
+          <mat-list-item>
+            <span matListItemTitle>編號</span>
+            <span matListItemLine>{{ item.iotid }}</span>
+          </mat-list-item>
+
+          <mat-list-item>
+            <span matListItemTitle>名稱</span>
+            <span matListItemLine>{{ item.name }}</span>
+          </mat-list-item>
+
+          <mat-list-item>
+            <span matListItemTitle>狀態</span>
+            <span matListItemLine>{{ item.state }}</span>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </ng-container>
+</div>
+<div *ngIf="!this.dataSource.data.length && !isLoading">
+  <p>無資料</p>
+</div>
