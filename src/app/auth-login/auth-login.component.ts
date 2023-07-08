@@ -63,7 +63,7 @@ export class AuthLoginComponent {
         (resData) => {
           this.openSnackBar('成功登入');
           this.isLoading = false;
-          this.router.navigate(['/userlog']);
+          this.router.navigate(['/']);
         },
         (errorRes) => {
           this.openSnackBar(errorRes);

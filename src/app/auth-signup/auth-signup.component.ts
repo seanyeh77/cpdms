@@ -63,7 +63,7 @@ export class AuthSignupComponent {
         (resData) => {
           this.openSnackBar('成功註冊');
           this.isLoading = false;
-          this.router.navigate(['/userlog']);
+          this.router.navigate(['/']);
         },
         (errorRes) => {
           this.openSnackBar(errorRes);

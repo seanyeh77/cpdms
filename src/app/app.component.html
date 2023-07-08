@@ -1,15 +1,13 @@
 <mat-toolbar>
   <mat-toolbar-row>
+    <span> 綜合人員與裝置管理系統 </span>
 
-    <span
-      >
-      <br/>綜合人員與裝置管理系統
-      <p style="font-size: 12px">
-        Comprehensive Personnel and Device Management System(CPDMS)
-      </p></span
+    <nav
+      *ngIf="!isMobile"
+      mat-tab-nav-bar
+      [backgroundColor]="background"
+      [tabPanel]="tabPanel"
     >
-
-    <nav mat-tab-nav-bar [backgroundColor]="background" [tabPanel]="tabPanel">
       <a
         mat-tab-link
         *ngFor="let link of links"
@@ -53,6 +51,23 @@
     >
       登出
     </button>
+  </mat-toolbar-row>
+  <mat-toolbar-row *ngIf="isMobile">
+    <nav
+      mat-tab-nav-bar
+      [backgroundColor]="background"
+      [tabPanel]="tabPanel"
+    >
+      <a
+        mat-tab-link
+        *ngFor="let link of links"
+        (click)="activeLink = link"
+        [active]="activeLink == link"
+        routerLink="/{{ link.path }}"
+      >
+        {{ link.name }}
+      </a>
+    </nav>
   </mat-toolbar-row>
 </mat-toolbar>
 <router-outlet></router-outlet>

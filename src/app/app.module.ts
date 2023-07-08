@@ -46,8 +46,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { DateAdapter } from '@angular/material/core';
 
 const routes: Routes = [
+  { path: '', component: UsertableComponent },
   { path: 'userlog', canActivate: [AuthGuard], component: UserlogComponent },
-  { path: 'usertable', component: UsertableComponent },
   { path: 'tableUserdata', component: TableUserdataComponent },
   { path: 'iotstatetable', component: IotstatetableComponent },
   { path: 'signup', component: AuthSignupComponent },
