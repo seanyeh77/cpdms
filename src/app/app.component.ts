@@ -39,7 +39,7 @@ export class AppComponent implements OnInit{
   }
   ngOnDestroy(): void {
     this.userSub.unsubscribe();
-    // this.pageSub.unsubscribe();
+    this.pageSub.unsubscribe();
   }
   title = 'UserDatamanager';
 

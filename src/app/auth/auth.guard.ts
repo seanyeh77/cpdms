@@ -1,6 +1,4 @@
 import {
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
   Router,
   UrlTree
 } from '@angular/router';
