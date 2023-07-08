@@ -1,2 +1,4 @@
 {
+    "appService.defaultWebAppToDeploy": "/subscriptions/3be3c4ec-8dc8-4d55-af1e-67b5ba331d71/resourceGroups/UserData_webapi/providers/Microsoft.Web/sites/cpdms",
+    "appService.deploySubpath": "dist\\userdatamanager"
 }
