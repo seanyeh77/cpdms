@@ -33,8 +33,8 @@ export class TableUserdataComponent implements OnInit, AfterViewChecked {
     private snackBar: MatSnackBar
   ) {}
   displayedColumns: string[] = [
-    'id',
     'chineseName',
+    'id',
     'grade',
     'dayaverage',
     'monaverage',

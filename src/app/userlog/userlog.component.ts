@@ -25,6 +25,15 @@ export class UserlogComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
+  formatter = new Intl.DateTimeFormat(undefined, {
+    year: 'numeric',
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+  });
+
   openSnackBar(message: string) {
     this.snackBar.open(message, '確定', {
       horizontalPosition: 'center',
@@ -76,5 +85,16 @@ export class UserlogComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  formatTime(date: Date | string) {
+    if (typeof date === 'string') {
+      date = new Date(date);
+    }
+
+    if (!isNaN(date.getTime())) {
+      return this.formatter.format(date);
+    }
+    return ''; // 或者您可以返回一个默认值或错误消息
   }
 }

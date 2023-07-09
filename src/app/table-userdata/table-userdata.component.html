@@ -48,14 +48,18 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header
         >上個月簽到天數</mat-header-cell
       >
-      <mat-cell *matCellDef="let element">{{ element.monaverage }} 天</mat-cell>
+      <mat-cell *matCellDef="let element"
+        >{{ element.monaverage | number }} 天</mat-cell
+      >
     </ng-container>
 
     <ng-container matColumnDef="dayaverage">
       <mat-header-cell *matHeaderCellDef mat-sort-header
-        >上個月天總時間</mat-header-cell
+        >上個月總時間</mat-header-cell
       >
-      <mat-cell *matCellDef="let element">{{ element.dayaverage }} 天</mat-cell>
+      <mat-cell *matCellDef="let element"
+        >{{ element.dayaverage | number }} 小時</mat-cell
+      >
     </ng-container>
 
     <ng-container matColumnDef="totaleverydayminute">
@@ -63,7 +67,7 @@
         >總時間</mat-header-cell
       >
       <mat-cell *matCellDef="let element"
-        >{{ element.totaleverydayminute }}天</mat-cell
+        >{{ element.totaleverydayminute | number }}天</mat-cell
       >
     </ng-container>
 
@@ -72,7 +76,7 @@
         >未打卡天數</mat-header-cell
       >
       <mat-cell *matCellDef="let element"
-        >{{ element.notcheckday }} 天</mat-cell
+        >{{ element.notcheckday | number }} 天</mat-cell
       >
     </ng-container>
 
@@ -90,7 +94,7 @@
         <button
           [disabled]="!isConnecting"
           mat-icon-button
-          (click)="Visibility(element.id)"
+          (click)="Visibility(element.chineseName)"
         >
           <mat-icon> visibility </mat-icon>
         </button>
@@ -130,6 +134,10 @@
       <mat-card-content>
         <mat-list>
           <mat-list-item>
+            <span matListItemTitle>姓名</span>
+            <span matListItemLine>{{ item.chineseName }}</span>
+          </mat-list-item>
+          <mat-list-item>
             <span matListItemTitle>學號</span>
             <span matListItemLine>{{ item.id }}</span>
           </mat-list-item>
@@ -137,17 +145,24 @@
             <span matListItemTitle>年級</span>
             <span matListItemLine>{{ item.grade }}</span>
           </mat-list-item>
+
           <mat-list-item>
             <span matListItemTitle>上個月簽到天數</span>
-            <span matListItemLine>{{ item.monaverage }} 天</span>
+            <span matListItemLine>{{ item.monaverage | number }} 天</span>
           </mat-list-item>
           <mat-list-item>
             <span matListItemTitle>上個月天總時間</span>
-            <span matListItemLine>{{ item.dayaverage }} 天</span>
+            <span matListItemLine>{{ item.dayaverage | number }} 小時</span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle>總時間</span>
+            <span matListItemLine
+              >{{ item.totaleverydayminute | number }} 天</span
+            >
           </mat-list-item>
           <mat-list-item>
             <span matListItemTitle>未打卡天數</span>
-            <span matListItemLine>{{ item.notcheckday }} 天</span>
+            <span matListItemLine>{{ item.notcheckday | number }} 天</span>
           </mat-list-item>
           <mat-list-item>
             <span matListItemTitle>狀態</span>

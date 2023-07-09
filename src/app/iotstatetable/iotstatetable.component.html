@@ -44,7 +44,7 @@
         >到期時間</mat-header-cell
       >
       <mat-cell *matCellDef="let element">{{
-        element.deadline | date : "MM/dd/yy"
+        formatTime(element.deadline)
       }}</mat-cell>
     </ng-container>
 
