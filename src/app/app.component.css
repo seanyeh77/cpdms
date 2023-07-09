@@ -1,6 +1,22 @@
-table {
-  width: 100%;
-}
 .example-spacer {
   flex: 1 1 auto;
+}
+.example-container {
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  height: 100%;
+}
+
+.example-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.example-sidenav {
+  width: 200px;
+}
+.manu-button {
+  width: 100%;
+  margin: 1%;
 }

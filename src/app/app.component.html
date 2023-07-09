@@ -1,73 +1,87 @@
-<mat-toolbar>
-  <mat-toolbar-row>
-    <span> 綜合人員與裝置管理系統 </span>
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <button
+    class="manu-button"
+      mat-flat-button
+      *ngFor="let link of links"
+      (click)="activeLink = link ;drawer.toggle()"
+      routerLink="/{{ link.path }}"
+    >
+      {{ link.name }}
+    </button>
+  </mat-drawer>
+  <mat-toolbar>
+    <mat-toolbar-row>
+      <div class="example-sidenav-content">
+        <button mat-icon-button type="button" *ngIf="isMobile" (click)="drawer.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
+      <span> 人員與裝置管理系統 </span>
 
-    <nav
-      *ngIf="!isMobile"
-      mat-tab-nav-bar
-      [backgroundColor]="background"
-      [tabPanel]="tabPanel"
-    >
-      <a
-        mat-tab-link
-        *ngFor="let link of links"
-        (click)="activeLink = link"
-        [active]="activeLink == link"
-        routerLink="/{{ link.path }}"
+      <nav
+        *ngIf="!isMobile"
+        mat-tab-nav-bar
+        [backgroundColor]="background"
+        [tabPanel]="tabPanel"
       >
-        {{ link.name }}
-      </a>
-    </nav>
-    <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
-    <span class="example-spacer"></span>
-    <button
-      mat-stroked-button
-      color="primary"
-      (click)="activeLink = { name: '登入', path: 'login', needAuth: false }"
-      *ngIf="page !== '/login' && !isAuthenticated"
-      routerLink="/login"
-    >
-      <mat-icon
-        class="example-icon"
-        aria-hidden="false"
-        aria-label="Example heart icon"
-        >login</mat-icon
+        <a
+          mat-tab-link
+          *ngFor="let link of links"
+          (click)="activeLink = link"
+          [active]="activeLink == link"
+          routerLink="/{{ link.path }}"
+        >
+          {{ link.name }}
+        </a>
+      </nav>
+      <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+      <span class="example-spacer"></span>
+      <button
+        mat-stroked-button
+        color="primary"
+        (click)="activeLink = { name: '登入', path: 'login', needAuth: false }"
+        *ngIf="page !== '/login' && !isAuthenticated"
+        routerLink="/login"
       >
-      登入
-    </button>
-    <button
-      mat-stroked-button
-      color="primary"
-      *ngIf="page === '/login' && !isAuthenticated"
-      routerLink="/signup"
-    >
-      註冊
-    </button>
-    <button
-      mat-stroked-button
-      color="primary"
-      (click)="onLogout()"
-      *ngIf="isAuthenticated"
-    >
-      登出
-    </button>
-  </mat-toolbar-row>
-  <mat-toolbar-row *ngIf="isMobile">
-    <nav
-      mat-tab-nav-bar
-      [backgroundColor]="background"
-      [tabPanel]="tabPanel"
-    >
-      <a
-        mat-tab-link
-        *ngFor="let link of links"
-        (click)="activeLink = link"
-        [active]="activeLink == link"
-        routerLink="/{{ link.path }}"
+        <mat-icon
+          class="example-icon"
+          aria-hidden="false"
+          aria-label="Example heart icon"
+          >login</mat-icon
+        >
+        登入
+      </button>
+      <button
+        mat-stroked-button
+        color="primary"
+        *ngIf="page === '/login' && !isAuthenticated"
+        routerLink="/signup"
       >
-        {{ link.name }}
-      </a>
-    </nav>
-  </mat-toolbar-row>
-</mat-toolbar>
-<router-outlet></router-outlet>
+        註冊
+      </button>
+      <button
+        mat-stroked-button
+        color="primary"
+        (click)="onLogout()"
+        *ngIf="isAuthenticated"
+      >
+        登出
+      </button>
+    </mat-toolbar-row>
+    <!-- <mat-toolbar-row *ngIf="isMobile">
+      <nav mat-tab-nav-bar [backgroundColor]="background" [tabPanel]="tabPanel">
+        <a
+          mat-tab-link
+          *ngFor="let link of links"
+          (click)="activeLink = link"
+          [active]="activeLink == link"
+          routerLink="/{{ link.path }}"
+        >
+          {{ link.name }}
+        </a>
+      </nav>
+    </mat-toolbar-row> -->
+  </mat-toolbar>
+  <router-outlet></router-outlet>
+</mat-drawer-container>

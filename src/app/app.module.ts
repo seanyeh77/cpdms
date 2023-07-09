@@ -43,8 +43,6 @@ import { AddIotDialogComponent } from './add-iot-dialog/add-iot-dialog.component
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 
-import { DateAdapter } from '@angular/material/core';
-
 const routes: Routes = [
   { path: '', component: UsertableComponent },
   { path: 'userlog', canActivate: [AuthGuard], component: UserlogComponent },
