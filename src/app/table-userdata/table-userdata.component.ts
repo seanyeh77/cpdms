@@ -110,9 +110,9 @@ export class TableUserdataComponent implements OnInit, AfterViewChecked {
       this.dataSource.paginator.firstPage();
     }
   }
-  Visibility(user: string) {
+  Visibility(chineseName: string, id: string) {
     const dialogRef = this.dialog.open(UserlogDialogComponent, {
-      data: [user],
+      data: { chineseName: chineseName, id: id },
     });
     dialogRef.afterClosed();
   }

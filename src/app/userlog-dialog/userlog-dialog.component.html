@@ -1,8 +1,8 @@
-<h1 mat-dialog-title>{{data}} 的紀錄</h1>
+<h1 mat-dialog-title>{{data.chineseName}} 的紀錄</h1>
 
 <div mat-dialog-content>
   <br />
-  <app-userlog [userid]=data></app-userlog>
+  <app-userlog [userid]=[data.id]></app-userlog>
 </div>
 
 <div mat-dialog-actions>

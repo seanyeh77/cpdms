@@ -95,6 +95,6 @@ export class UserlogComponent implements OnInit {
     if (!isNaN(date.getTime())) {
       return this.formatter.format(date);
     }
-    return ''; // 或者您可以返回一个默认值或错误消息
+    return '';
   }
 }

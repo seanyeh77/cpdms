@@ -34,34 +34,34 @@ export class AddUserdataDialogComponent implements OnInit {
   ) {}
   isLoading = false;
   form: FormGroup = new FormGroup({
-    id: new FormControl('000000' as string, [
+    id: new FormControl('' as string, [
       Validators.required,
       Validators.minLength(6),
       Validators.maxLength(6),
       Validators.pattern(/^\S.*\S$/),
     ]),
-    chineseName: new FormControl('測試', [
+    chineseName: new FormControl('', [
       Validators.required,
       Validators.pattern(/^\S.*\S$/),
     ]),
-    englishName: new FormControl('test', [
+    englishName: new FormControl('', [
       Validators.required,
       Validators.pattern(/^\S.*\S$/),
     ]),
-    gender: new FormControl('男', [
+    gender: new FormControl('', [
       Validators.required,
       Validators.pattern('男|女'),
     ]),
-    grade: new FormControl('11', [Validators.pattern('[0-9]{1,2}')]),
-    email: new FormControl('s010597@go.pymhs.tyc.edu.tw', [
+    grade: new FormControl('', [Validators.pattern('[0-9]{1,2}')]),
+    email: new FormControl('', [
       Validators.required,
       Validators.email,
     ]),
-    position: new FormControl('老師', [
+    position: new FormControl('', [
       Validators.required,
       Validators.pattern('學生|老師|其他'),
     ]),
-    view: new FormControl('test', [
+    view: new FormControl('', [
       Validators.required,
       Validators.pattern(/^\S.*\S$/),
     ]),
