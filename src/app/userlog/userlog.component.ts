@@ -18,8 +18,8 @@ export class UserlogComponent implements OnInit {
     private httpuserdataService: HttpuserdataService,
     private snackBar: MatSnackBar
   ) {}
-  isLoading = false;
   @Input() userid?: String[];
+  isLoading = false;
   dataSource = new MatTableDataSource<Userlog>();
   displayedColumns = ['id', 'time', 'state'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;

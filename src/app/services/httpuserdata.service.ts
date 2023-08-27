@@ -23,7 +23,9 @@ export class HttpuserdataService implements OnInit{
     //Add 'implements OnInit' to the class.
     this.isConnecting = new BehaviorSubject<boolean>(false);
   }
+  //抓取後端資料
   public getuserdata() {
+    //傳送HTTP請求
     return this.http.get<UserData[]>(this.url + 'userdata').pipe(
       catchError(this.handleError.bind(this)),
       tap((resData) => {

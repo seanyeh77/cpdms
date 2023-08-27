@@ -38,27 +38,28 @@ export class UsertableComponent implements OnInit {
 
   ngOnInit() {
     this.isLoading = true;
-    this.userdataSub = this.httpuserdataService.userdata.subscribe((resData) => {
-      if (!!resData) {
-        this.dataSource.data = resData;
+    //共用變數userdata值被更改事件
+    this.userdataSub = this.httpuserdataService.userdata.subscribe(
+      (resData) => {  //更改後的值
+        if (!!resData) {
+          this.dataSource.data = resData;
+        }
       }
-    });
+    );
     this.userSub = this.authService.user.subscribe((user) => {
       this.isAuthenticated = !!user;
     });
     this.httpuserdataService.isConnecting.subscribe((isConnected) => {
       this.isConnecting = isConnected;
     });
-
-    this.httpuserdataService.getuserdata().subscribe(
-      (resData) => {
-        this.isLoading = false;
-      },
-      (err) => {
+    //訂閱資料
+    this.httpuserdataService.getuserdata().subscribe({
+      next: () => (this.isLoading = false),
+      error: (err) => {
         this.isLoading = false;
         this.openSnackBar(err);
-      }
-    );
+      },
+    });
   }
 
   ngOnDestroy(): void {
@@ -67,10 +68,12 @@ export class UsertableComponent implements OnInit {
   }
 
   edituser(user: UserData) {
+    // 開啟修改成員資料對話視窗
     const dialogRef = this.dialog.open(EditUserdataDialogComponent, {
       data: user,
     });
-    dialogRef.afterClosed();
+    // 接收 dialogRef傳回的值
+    dialogRef.afterClosed().subscribe(() => {});
   }
 
   announceSortChange(sortState: Sort) {

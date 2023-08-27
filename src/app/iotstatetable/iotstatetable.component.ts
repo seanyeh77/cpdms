@@ -45,10 +45,10 @@ export class IotstatetableComponent {
   });
 
   displayedColumns: string[] = [
+    'name',
     'iotid',
     'type',
     'deadline',
-    'name',
     'state',
     'id',
     'action',

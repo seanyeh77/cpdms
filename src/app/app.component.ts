@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { NavigationSkipped, NavigationStart, Router } from '@angular/router';
 import { AuthService } from './auth/auth.service';

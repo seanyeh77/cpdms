@@ -22,11 +22,11 @@ export class AuthService {
   private tokenExpirationTimer: any;
   private firebaseAPIKey: string = AppConfiguration.Setting().firebase.APIKey;
   constructor(private http: HttpClient, private router: Router) {}
-
+  //註冊帳號
   public signup(email: string | null, password: string | null) {
     return this.http
       .post<AuthResponseData>(
-        AppConfiguration.Setting().firebase.signup+this.firebaseAPIKey,
+        AppConfiguration.Setting().firebase.signup + this.firebaseAPIKey,
         {
           email: email,
           password: password,
@@ -45,6 +45,7 @@ export class AuthService {
         })
       );
   }
+  //登入帳號
   public login(email: string | null, password: string | null) {
     return this.http
       .post<AuthResponseData>(
@@ -67,8 +68,8 @@ export class AuthService {
         })
       );
   }
-
-  logout() {
+  //登出帳號
+  public logout() {
     this.user.next(null);
     this.router.navigate(['/login']);
     localStorage.removeItem('userData');
@@ -77,7 +78,7 @@ export class AuthService {
     }
     this.tokenExpirationTimer = null;
   }
-
+  //Firebase Authentication 類別
   private handleAuthentication(
     email: string,
     userId: string,
@@ -91,8 +92,8 @@ export class AuthService {
     this.autoLogout(expiresIn * 1000);
     localStorage.setItem('userData', JSON.stringify(user));
   }
-
-  autoLogin() {
+  //自動登入
+  public autoLogin() {
     const userDataJSON = localStorage.getItem('userData');
     if (!userDataJSON) {
       return;
@@ -106,14 +107,12 @@ export class AuthService {
     if (!userData) {
       return;
     }
-
     const loadedUser = new User(
       userData.email,
       userData.id,
       userData._token,
       new Date(userData._tokenExpirationDate)
     );
-
     if (loadedUser.token) {
       this.user.next(loadedUser);
       const expirationDuration =
@@ -122,13 +121,13 @@ export class AuthService {
       this.autoLogout(expirationDuration);
     }
   }
-
-  autoLogout(expirationDuration: number) {
+  //自動登出
+  private autoLogout(expirationDuration: number) {
     this.tokenExpirationTimer = setTimeout(() => {
       this.logout();
     }, expirationDuration);
   }
-
+  //判斷錯誤訊息
   private handleError(errorRes: HttpErrorResponse) {
     let errorMessage = '發生未知的錯誤';
     if (!errorRes.error || !errorRes.error.error) {
